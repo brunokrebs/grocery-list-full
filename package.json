@@ -4,7 +4,11 @@
   "description": "Koa, LokiJS, Angular 2 and Node application",
   "main": "dist/app.js",
   "scripts": {
-    "start": "nodemon src/server/app.js",
+    "clean": "rm -rf dist && mkdir dist",
+    "build-server": "babel -d ./dist/server ./src/server -s",
+    "build": "npm run clean && npm run build-server",
+    "dev": "nodemon --exec babel-node -- src/server/app.js",
+    "start": "node dist/server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -17,6 +21,8 @@
   "author": "Bruno Krebs",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
     "koa": "^1.2.4",
     "nodemon": "^1.11.0"
   },
