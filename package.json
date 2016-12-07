@@ -1,0 +1,21 @@
+{
+  "name": "klan",
+  "version": "0.0.1",
+  "description": "Koa, LokiJS, Angular 2 and Node application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "koa",
+    "lokijs",
+    "angular2",
+    "node",
+    "javascript"
+  ],
+  "author": "Bruno Krebs",
+  "license": "ISC",
+  "devDependencies": {
+    "koa": "^1.2.4"
+  }
+}
