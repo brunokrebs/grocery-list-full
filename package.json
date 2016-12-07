@@ -2,8 +2,9 @@
   "name": "klan",
   "version": "0.0.1",
   "description": "Koa, LokiJS, Angular 2 and Node application",
-  "main": "index.js",
+  "main": "dist/app.js",
   "scripts": {
+    "start": "node src/serve/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -17,5 +18,8 @@
   "license": "ISC",
   "devDependencies": {
     "koa": "^1.2.4"
+  },
+  "dependencies": {
+    "koa-static": "^2.0.0"
   }
 }
