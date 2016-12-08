@@ -1,1 +1,2 @@
-module.exports = require('./config/webpack.dev.js');
+import babelDev from './config/webpack.dev.babel.js';
+module.exports = babelDev;

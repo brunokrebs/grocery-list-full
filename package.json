@@ -6,6 +6,7 @@
   "scripts": {
     "clean": "rimraf dist && mkdir dist",
     "build-server": "babel -d ./dist/server ./src/server -s",
+    "build-dev": "webpack --config config/webpack.dev.babel.js --progress",
     "build": "npm run clean && npm run build-server",
     "dev": "nodemon --exec babel-node -- src/server/app.js",
     "start": "node dist/server/app.js",
