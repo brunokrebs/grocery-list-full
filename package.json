@@ -11,7 +11,7 @@
     "build-dev-client": "webpack --config config/webpack.dev.babel.js --progress",
     "build-dev-server": "babel src/server --out-dir dev/server --source-maps",
     "build-dev": "npm run clean && npm run build-dev-server & npm run build-dev-client",
-    "dev": "npm run build-dev && nodemon dev/server/app.js & npm run watch",
+    "dev": "npm run build-dev && nodemon --watch dev/server dev/server/app.js & npm run watch",
     "start": "node dist/server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "npm run watch-dev-client & npm run watch-dev-server",
