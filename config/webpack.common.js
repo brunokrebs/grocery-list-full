@@ -10,13 +10,13 @@ const TYPESCRIPT_LOADER = {
 
 const CSS_STYLE_LOADER = {
     test: /\.css$/,
-    exclude: helpers.root('src', 'app'),
+    exclude: helpers.root('src', 'client', 'app'),
     loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
 };
 
 const CSS_RAW_LOADER = {
     test: /\.css$/,
-    include: helpers.root('src', 'app'),
+    include: helpers.root('src', 'client', 'app'),
     loader: 'raw'
 };
 
@@ -32,9 +32,9 @@ const STATIC_FILE_LOADER = {
 
 module.exports = {
     entry: {
-        'polyfills': './src/polyfills.ts',
-        'vendor': './src/vendor.ts',
-        'app': './src/main.ts'
+        'polyfills': './src/client/polyfills.ts',
+        'vendor': './src/client/vendor.ts',
+        'app': './src/client/main.ts'
     },
 
     resolve: {
@@ -51,7 +51,7 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            template: 'src/index.html'
+            template: 'src/client/index.html'
         })
     ]
 };
