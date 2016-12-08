@@ -1,7 +1,7 @@
 import serve from 'koa-static';
 import koa from 'koa';
 
-const CLIENT_FILES = './dist';
+const CLIENT_FILES = './dist/client/';
 
 const app = koa();
 app.use(serve(CLIENT_FILES));
