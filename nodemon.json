@@ -1,0 +1,11 @@
+{
+  "events": {
+    "start": "npm run livereload"
+  },
+  "watch": [
+    "dev/client"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
