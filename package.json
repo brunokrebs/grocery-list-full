@@ -4,7 +4,7 @@
   "description": "Koa, LokiJS, Angular 2 and Node application",
   "main": "dist/app.js",
   "scripts": {
-    "clean": "rm -rf dist && mkdir dist",
+    "clean": "rimraf dist && mkdir dist",
     "build-server": "babel -d ./dist/server ./src/server -s",
     "build": "npm run clean && npm run build-server",
     "dev": "nodemon --exec babel-node -- src/server/app.js",
