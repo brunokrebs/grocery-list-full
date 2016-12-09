@@ -13,10 +13,10 @@ export class AuthenticationService implements OnInit {
         // FIXME load bearer token from localStorage
     }
 
-    authenticate(): Promise<String> {
+    authenticate(): Promise<Object> {
         return this.http.get(this.authEndpoint)
             .toPromise()
-            .then(response => response.json().data as String)
+            .then(response => response.json())
             .catch(AuthenticationService.handleError);
     }
 

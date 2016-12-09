@@ -1,1 +1,6 @@
-<h2>Please, sign in.</h2>
+<h2 *ngIf="!isAuthenticated()">Please, sign in.</h2>
+<h2 *ngIf="isAuthenticated()">I'm glad you are back, {{ getUsername() }}!</h2>
+<p>
+    <button *ngIf="!isAuthenticated()" (click)="signIn()">Sign In!</button>
+    <button *ngIf="isAuthenticated()" (click)="signOut()">Sign out!</button>
+</p>
