@@ -13,6 +13,7 @@ Oh, and be aware that [Koa](https://github.com/koajs/koa#installation) - next ge
 First of all, we will have to clone this repo, as you may have been expecting. After cloning it, run a `npm install` to install all `dev` and `runtime` dependencies.
 
 Having all the dependencies in place, there are two `npm scripts` that we need to run to setup a proper development environment:
+
 1. `npm run dev` - this will create a `./dev/` folder with front-end and backend code.
 2. `npm run livereload` - this will start [browsersync]() and listen to changes on `./dev/client/` to hot reload your browser.
 
