@@ -5,7 +5,10 @@ import helpers from './helpers';
 
 const TYPESCRIPT_LOADER = {
     test: /\.ts$/,
-    loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+    loaders: [
+        'awesome-typescript-loader?tsconfig=src/client/tsconfig.json',
+        'angular2-template-loader'
+    ]
 };
 
 const CSS_STYLE_LOADER = {

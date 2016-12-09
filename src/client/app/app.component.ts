@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    title = `Look! I have livereloading now!!`;
+    title = `Look! I still have livereloading!!!`;
 }
