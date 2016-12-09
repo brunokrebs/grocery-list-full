@@ -15,6 +15,6 @@ First of all, we will have to clone this repo, as you may have been expecting. A
 Having all the dependencies in place, there are two `npm scripts` that we need to run to setup a proper development environment:
 
 1. `npm run dev` - this will create a `./dev/` folder with front-end and backend code.
-2. `npm run livereload` - this will start [browsersync]() and listen to changes on `./dev/client/` to hot reload your browser.
+2. `npm run livereload` - this will start [browsersync](https://browsersync.io/) and listen to changes on `./dev/client/` to hot reload your browser.
 
 I will create a single script that will trigger both scripts automatically, so keep in touch.
