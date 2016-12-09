@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    title = `Look! I still have livereloading!!!`;
+    title = `KLAN - Koa, LokiJS, Angular 2 and Node app`;
 }
