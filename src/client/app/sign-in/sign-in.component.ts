@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AuthenticationService }  from '../authentication.service';
+import { Credentials } from '../../../common/credentials';
 
 @Component({
     selector: 'sign-in',
@@ -9,24 +10,12 @@ import { AuthenticationService }  from '../authentication.service';
 })
 export class SignInComponent {
 
-    private user: String = null;
+    credentials: Credentials = new Credentials();
 
     constructor(private authenticationService: AuthenticationService) { }
 
     signIn(): void {
-        this.authenticationService.authenticate()
-            .then(obj => this.user = obj['username']);
-    }
-
-    signOut(): void {
-        this.user = null;
-    }
-
-    isAuthenticated(): boolean {
-        return this.user != null;
-    }
-
-    getUsername(): String {
-        return this.user;
+        this.authenticationService
+            .authenticate(this.credentials);
     }
 }
