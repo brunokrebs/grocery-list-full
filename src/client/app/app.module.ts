@@ -1,17 +1,21 @@
-import { NgModule }         from '@angular/core';
-import { BrowserModule }    from '@angular/platform-browser';
-import { HttpModule }       from '@angular/http';
+import { NgModule, ErrorHandler }   from '@angular/core';
+import { BrowserModule }            from '@angular/platform-browser';
+import { HttpModule }               from '@angular/http';
 
-import { AppComponent }     from './app.component';
-import { SignInComponent }  from './sign-in';
+import { AppComponent }             from './app.component';
+import { GlobalErrorHandler }       from './global-error-handler';
+import { SignInComponent }          from './sign-in';
 
 @NgModule({
-    imports: [
-        BrowserModule, HttpModule
-    ],
+    bootstrap: [ AppComponent ],
     declarations: [
         AppComponent, SignInComponent
     ],
-    bootstrap: [ AppComponent ]
+    imports: [
+        BrowserModule, HttpModule
+    ],
+    providers: [
+        { provide: ErrorHandler, useClass: GlobalErrorHandler}
+    ]
 })
 export class AppModule { }
