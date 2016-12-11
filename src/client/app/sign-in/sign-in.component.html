@@ -2,6 +2,7 @@
 <div>
     <form (ngSubmit)="signIn()">
         <input type="text" [(ngModel)]="credentials.email" name="email">
+        <input type="password" [(ngModel)]="credentials.password" name="password">
         <button type="submit">Sign In!</button>
     </form>
 </div>
