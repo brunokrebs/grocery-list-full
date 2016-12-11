@@ -2,6 +2,7 @@ import * as Koa from 'koa';
 import * as StaticFiles from 'koa-static';
 import * as BodyParser from 'koa-bodyparser';
 import * as Router from 'koa-router';
+import { Error } from '../common/error';
 
 const CLIENT_FILES = './dev/client/';
 
@@ -15,10 +16,18 @@ SERVER.use(StaticFiles(CLIENT_FILES));
 SERVER.use(ROUTER.routes());
 
 // routes
-ROUTER.get('/api/authenticate', function *() {
-    this.body = {
-        username: `Bruno Krebs`
-    };
+ROUTER.post('/api/authenticate', function *() {
+    if (this.request.body.username == 'bruno') {
+        this.body = {
+            username: `Bruno Krebs`
+        };
+    } else {
+        let error = new Error(401, `Who are you?`);
+        this.status = error.statusCode;
+        let err = error.toObject();
+        console.log(err);
+        this.body = err;
+    }
 });
 
 SERVER.listen(3000);
