@@ -17,9 +17,9 @@ SERVER.use(ROUTER.routes());
 
 // routes
 ROUTER.post('/api/authenticate', function *() {
-    if (this.request.body.username == 'bruno') {
+    if (this.request.body.email == 'me@brunokrebs.com') {
         this.body = {
-            username: `Bruno Krebs`
+            email: `me@brunokrebs.com`
         };
     } else {
         let error = new Error(401, `Who are you?`);
