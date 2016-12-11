@@ -68,6 +68,7 @@
     "@angular/platform-browser": "~2.2.0",
     "@angular/platform-browser-dynamic": "~2.2.0",
     "@angular/router": "~3.2.0",
+    "cerialize": "^0.1.13",
     "core-js": "^2.4.1",
     "koa-bodyparser": "^2.3.0",
     "koa-router": "^5.4.0",
