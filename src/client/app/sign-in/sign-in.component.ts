@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
-
-import { AuthenticationService }  from '../authentication.service';
-import { Credentials } from '../../../common/credentials';
+import {Component} from "@angular/core";
+import {AuthenticationService} from "../authentication.service";
+import {Credentials} from "../../../common/credentials";
 
 @Component({
     selector: 'sign-in',
-    templateUrl: './sign-in.component.html',
-    providers: [AuthenticationService]
+    templateUrl: './sign-in.component.html'
 })
 export class SignInComponent {
 

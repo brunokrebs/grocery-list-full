@@ -1,11 +1,19 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import {Injectable, OnInit}   from '@angular/core';
+import { Http }                             from '@angular/http';
+import { Subject }                          from 'rxjs/Subject';
 
 import 'rxjs/add/operator/toPromise';
 
+import { Serialize }                        from 'cerialize';
+import { Credentials }                      from '../../common/credentials';
+
 @Injectable()
 export class AuthenticationService implements OnInit {
+    private signedInSource = new Subject<String>();
     private authEndpoint = '/api/authenticate';
+    private _user: String;
+
+    public signedIn$ = this.signedInSource.asObservable();
 
     constructor(private http: Http) { }
 
@@ -13,16 +21,21 @@ export class AuthenticationService implements OnInit {
         // FIXME load bearer token from localStorage
     }
 
-    authenticate(): Promise<Object> {
-        return this.http.get(this.authEndpoint)
+    authenticate(credentials: Credentials): Promise<any> {
+        return this.http.post(this.authEndpoint, Serialize(credentials))
             .toPromise()
-            .then(response => response.json())
-            .catch(AuthenticationService.handleError);
+            .then(response => {
+                this._user = response.json().email;
+                this.signedInSource.next(this._user);
+                return response;
+            });
     }
 
-    private static handleError(error: any): Promise<any> {
-        // FIXME replace with a proper logger service
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+    isSignedIn(): boolean {
+        return this._user == null;
+    }
+
+    user(): String {
+        return this._user;
     }
 }
