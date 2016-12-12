@@ -8,15 +8,21 @@ class UserDAO {
     private ADMIN: User;
 
     configure(DB: Loki) {
-        this.USER_DB = DB.addCollection('user');
+        let instance = this;
+        DB.loadDatabase({}, function () {
+            instance.USER_DB = DB.getCollection('user');
+            if (!instance.USER_DB) {
+                instance.USER_DB = DB.addCollection('user');
+            }
 
-        let admin = this.USER_DB.findOne({
-            email: 'me@brunokrebs.com'
+            let admin = instance.USER_DB.findOne({
+                email: 'me@brunokrebs.com'
+            });
+            if (!admin) {
+                console.log('inserting admin user');
+                instance.insertUser(new User('me@brunokrebs.com', 'password', 'Bruno Krebs', true));
+            }
         });
-        if (!admin) {
-            console.log('inserting admin user');
-            this.insertUser(new User('me@brunokrebs.com', 'password', 'Bruno Krebs', true));
-        }
     }
 
     getAdmin() {
