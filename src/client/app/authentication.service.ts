@@ -1,12 +1,12 @@
-import {Injectable, OnInit}   from '@angular/core';
-import { Http }                             from '@angular/http';
-import { Subject }                          from 'rxjs/Subject';
+import {Injectable, OnInit}             from '@angular/core';
+import { Http }                         from '@angular/http';
+import { Subject }                      from 'rxjs/Subject';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Serialize, Deserialize }                        from 'cerialize';
-import { Credentials }                      from '../../common/credentials';
-import {User} from "../../common/user";
+import { Serialize, Deserialize }       from 'cerialize';
+import { Credentials }                  from '../../common/credentials';
+import {User}                           from "../../common/user";
 
 @Injectable()
 export class AuthenticationService implements OnInit {
