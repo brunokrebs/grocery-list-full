@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AuthenticationService} from "./authentication.service";
+import {User} from "../../common/user";
 
 @Component({
     selector: 'my-app',
@@ -11,10 +12,12 @@ export class AppComponent {
     title = `KLAN - Koa, LokiJS, Angular 2 and Node app`;
 
     private _signedIn: boolean = null;
+    private _user: User;
 
     constructor(private authenticationService: AuthenticationService) {
         authenticationService.signedIn$.subscribe(user => {
             this._signedIn = true;
+            this._user = user;
         });
     }
 
@@ -23,6 +26,6 @@ export class AppComponent {
     }
 
     user(): String {
-        return this.authenticationService.user();
+        return this._user ? this._user.email : null;
     }
 }

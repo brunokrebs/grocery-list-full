@@ -4,14 +4,15 @@ import { Subject }                          from 'rxjs/Subject';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Serialize }                        from 'cerialize';
+import { Serialize, Deserialize }                        from 'cerialize';
 import { Credentials }                      from '../../common/credentials';
+import {User} from "../../common/user";
 
 @Injectable()
 export class AuthenticationService implements OnInit {
-    private signedInSource = new Subject<String>();
+    private signedInSource = new Subject<User>();
     private authEndpoint = '/api/authenticate';
-    private _user: String;
+    private _user: User;
 
     public signedIn$ = this.signedInSource.asObservable();
 
@@ -21,13 +22,13 @@ export class AuthenticationService implements OnInit {
         // FIXME load bearer token from localStorage
     }
 
-    authenticate(credentials: Credentials): Promise<any> {
+    authenticate(credentials: Credentials): Promise<User> {
         return this.http.post(this.authEndpoint, Serialize(credentials))
             .toPromise()
             .then(response => {
-                this._user = response.json().email;
+                this._user = Deserialize(response.json(), User);
                 this.signedInSource.next(this._user);
-                return response;
+                return this._user;
             });
     }
 
@@ -35,7 +36,7 @@ export class AuthenticationService implements OnInit {
         return this._user == null;
     }
 
-    user(): String {
+    user(): User {
         return this._user;
     }
 }

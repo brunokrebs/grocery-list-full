@@ -4,28 +4,15 @@ import * as BodyParser from 'koa-bodyparser';
 import * as Lokijs from 'lokijs';
 import * as Router from 'koa-router';
 import { Error } from '../common/error';
+import { SINGLETON as UserDAO } from './user/user.dao';
 
 const CLIENT_FILES = './dev/client/';
 
 const DB = new Lokijs('klan-database.json', {
     autosave: true
 });
-const USER_DB = DB.addCollection('user');
 
-let admin = USER_DB.findOne({
-    email: 'me@brunokrebs.com'
-});
-if (!admin) {
-    console.log('inserting base user');
-    USER_DB.insert({
-        email:'me@brunokrebs.com',
-        password: 'password',
-        admin: 'true'
-    });
-    USER_DB.commit();
-}
-
-admin = USER_DB.findOne({'email':'me@brunokrebs.com'});
+UserDAO.configure(DB);
 
 // FIXME refactor it to something like a Server class
 const SERVER = new Koa();
@@ -38,12 +25,7 @@ SERVER.use(ROUTER.routes());
 
 // routes
 ROUTER.post('/api/authenticate', function *() {
-    let user = USER_DB.findOne({
-        $and: [
-            { email: this.request.body.email },
-            { password: this.request.body.password }
-        ]
-    });
+    let user = UserDAO.findByUsernameAndPassword(this.request.body.email, this.request.body.password);
     if (user) {
         this.body = user;
     } else {
