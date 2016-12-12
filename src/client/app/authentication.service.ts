@@ -12,6 +12,7 @@ import {User}                           from "../../common/user";
 export class AuthenticationService implements OnInit {
     private signedInSource = new Subject<User>();
     private authEndpoint = '/api/authenticate';
+    private signUpEndpoint = '/api/sign-up';
     private _user: User;
 
     public signedIn$ = this.signedInSource.asObservable();
@@ -24,6 +25,16 @@ export class AuthenticationService implements OnInit {
 
     authenticate(credentials: Credentials): Promise<User> {
         return this.http.post(this.authEndpoint, Serialize(credentials))
+            .toPromise()
+            .then(response => {
+                this._user = Deserialize(response.json(), User);
+                this.signedInSource.next(this._user);
+                return this._user;
+            });
+    }
+
+    signUp(credentials: Credentials): Promise<User> {
+        return this.http.post(this.signUpEndpoint, Serialize(credentials))
             .toPromise()
             .then(response => {
                 this._user = Deserialize(response.json(), User);
