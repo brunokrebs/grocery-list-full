@@ -1,1 +1,9 @@
 <h2>Fill your personal data to sign up.</h2>
+<div>
+    <form (ngSubmit)="signUp()">
+        <input type="text" [(ngModel)]="user.name" name="name">
+        <input type="text" [(ngModel)]="user.email" name="email">
+        <input type="password" [(ngModel)]="user.password" name="password">
+        <button type="submit">Sign Up!</button>
+    </form>
+</div>

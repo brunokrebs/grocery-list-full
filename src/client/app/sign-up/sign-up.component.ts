@@ -1,18 +1,18 @@
 import {Component} from "@angular/core";
-import {Credentials} from "../../../common/credentials";
 import {AuthenticationService} from "../authentication.service";
+import {User} from "../../../common/user";
 
 @Component({
     selector: 'sign-up',
     templateUrl: './sign-up.component.html'
 })
 export class SignUpComponent {
-    credentials: Credentials = new Credentials();
+    user: User = new User();
 
     constructor(private authenticationService: AuthenticationService) { }
 
     signUp(): void {
         this.authenticationService
-            .signUp(this.credentials);
+            .signUp(this.user);
     }
 }

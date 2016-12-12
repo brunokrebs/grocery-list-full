@@ -1,11 +1,11 @@
 import { ErrorHandler } from "@angular/core";
 
-import { Error } from '../../common/error';
+import { Message } from '../../common/message';
 
 export class GlobalErrorHandler implements ErrorHandler {
     handleError(error : any) {
         if (error.rejection && typeof error.rejection.json == 'function') {
-            let myErrorObj: Error = error.rejection.json();
+            let myErrorObj: Message = error.rejection.json();
             alert(myErrorObj.statusCode + ': ' + myErrorObj.message);
         } else {
             console.log(error);

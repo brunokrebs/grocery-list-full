@@ -11,7 +11,7 @@ import {User}                           from "../../common/user";
 @Injectable()
 export class AuthenticationService implements OnInit {
     private signedInSource = new Subject<User>();
-    private authEndpoint = '/api/authenticate';
+    private authEndpoint = '/api/sign-in';
     private signUpEndpoint = '/api/sign-up';
     private _user: User;
 
@@ -33,8 +33,8 @@ export class AuthenticationService implements OnInit {
             });
     }
 
-    signUp(credentials: Credentials): Promise<User> {
-        return this.http.post(this.signUpEndpoint, Serialize(credentials))
+    signUp(user: User): Promise<User> {
+        return this.http.post(this.signUpEndpoint, Serialize(user))
             .toPromise()
             .then(response => {
                 this._user = Deserialize(response.json(), User);

@@ -1,4 +1,4 @@
-export class Error {
+export class Message {
     private _statusCode: number;
     private _message: String;
 
