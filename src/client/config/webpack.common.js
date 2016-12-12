@@ -33,6 +33,21 @@ const STATIC_FILE_LOADER = {
     loader: 'file?name=assets/[name].[hash].[ext]'
 };
 
+const SASS_LOADER = {
+    test: /\.(sass|scss)$/,
+    loaders: ['css-to-string-loader', 'css-loader?sourceMap', 'resolve-url', 'sass-loader?sourceMap']
+};
+
+const FONT_LOADER = {
+    test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url?limit=10000&minetype=application/font-woff"
+}
+
+const ICON_LOADER = {
+    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: "file"
+};
+
 module.exports = {
     entry: {
         'polyfills': './src/client/polyfills.ts',
@@ -45,7 +60,12 @@ module.exports = {
     },
 
     module: {
-        loaders: [TYPESCRIPT_LOADER, HTML_LOADER, STATIC_FILE_LOADER, CSS_RAW_LOADER, CSS_STYLE_LOADER]
+        loaders: [
+            TYPESCRIPT_LOADER, HTML_LOADER,
+            STATIC_FILE_LOADER, CSS_RAW_LOADER,
+            CSS_STYLE_LOADER, SASS_LOADER,
+            FONT_LOADER, ICON_LOADER
+        ]
     },
 
     plugins: [

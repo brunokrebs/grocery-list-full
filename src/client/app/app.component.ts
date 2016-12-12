@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {AuthenticationService} from "./authentication.service";
 import {User} from "../../common/user";
 
 @Component({
     selector: 'my-app',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
+    styleUrls: ['app.component.scss'],
+    encapsulation: ViewEncapsulation.None,
     providers: [AuthenticationService]
 })
 export class AppComponent {
-    title = `KLAN - Koa, LokiJS, Angular 2 and Node app`;
+    title = `KLAN app`;
 
     private _signedIn: boolean = null;
     private _user: User;

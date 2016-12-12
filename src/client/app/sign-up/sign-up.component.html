@@ -1,9 +1,20 @@
-<h2>Fill your personal data to sign up.</h2>
-<div>
-    <form (ngSubmit)="signUp()">
-        <input type="text" [(ngModel)]="user.name" name="name">
-        <input type="text" [(ngModel)]="user.email" name="email">
-        <input type="password" [(ngModel)]="user.password" name="password">
-        <button type="submit">Sign Up!</button>
-    </form>
+<div class="row">
+    <div class="col-xs-12">
+        <h2>Fill your personal data to sign up.</h2>
+        <form (ngSubmit)="signUp()">
+            <div class="form-group">
+                <label for="name">Full name</label>
+                <input type="text" [(ngModel)]="user.name" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail address</label>
+                <input type="text" [(ngModel)]="user.email" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" [(ngModel)]="user.password" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up!</button>
+        </form>
+    </div>
 </div>
