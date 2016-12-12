@@ -6,11 +6,12 @@ import {AppComponent} from "./app.component";
 import {GlobalErrorHandler} from "./global-error-handler";
 import {SignInComponent} from "./sign-in";
 import {Routing} from "./app.routing";
+import {SignUpComponent} from "./sign-up";
 
 @NgModule({
     bootstrap: [ AppComponent ],
     declarations: [
-        AppComponent, SignInComponent
+        AppComponent, SignInComponent, SignUpComponent
     ],
     imports: [
         BrowserModule, HttpModule, FormsModule, Routing
