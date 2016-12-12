@@ -1,4 +1,8 @@
 <main>
     <h1>{{title}} - {{user()}}</h1>
+    <hr>
+    <a [routerLink]="['']">Sign In</a>
+    <a [routerLink]="['sign-up']">Sign Up</a>
+    <hr>
     <router-outlet></router-outlet>
 </main>
