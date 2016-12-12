@@ -34,7 +34,7 @@ class UserDAO {
         });
     }
 
-    findByUsernameAndPassword(email: String, password: String) {
+    findByUsernameAndPassword(email: String, password: String) : User {
         let userFound = this.USER_DB.findOne({
             $and: [
                 { email: email },

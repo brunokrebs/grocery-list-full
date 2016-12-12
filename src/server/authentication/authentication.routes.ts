@@ -2,6 +2,9 @@
 import {SINGLETON as UserDAO} from "../user/user.dao";
 import {Message} from '../../common/message';
 import {Deserialize} from "cerialize";
+import { sign as signJWT } from "jsonwebtoken";
+
+const SUPER_SECRET = 'change-this';
 
 const SIGN_UP = {
     path: '/api/sign-up',
@@ -23,6 +26,8 @@ const SIGN_IN = {
     middleware: function *() {
         let user = UserDAO.findByUsernameAndPassword(this.request.body.email, this.request.body.password);
         if (user) {
+            delete user.password;
+            user.token = signJWT(user, SUPER_SECRET);
             this.body = user;
         } else {
             let error = new Message(401, `Who are you?`);

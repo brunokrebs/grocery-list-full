@@ -5,6 +5,7 @@ export class User {
     @autoserialize public password: String;
     @autoserialize public admin: boolean;
     @autoserialize public name: String;
+    @autoserialize public token: String;
 
     constructor(email?: String, password?: String, name?: String, admin?: boolean) {
         this.email = email;
