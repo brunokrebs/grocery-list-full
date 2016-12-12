@@ -46,7 +46,7 @@ export class AuthenticationService implements OnInit {
     }
 
     isSignedIn(): boolean {
-        return this._user == null;
+        return this._user != null;
     }
 
     user(): User {

@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation} from "@angular/core";
 import {AuthenticationService} from "./authentication.service";
 import {User} from "../../common/user";
 
@@ -6,8 +6,7 @@ import {User} from "../../common/user";
     selector: 'my-app',
     templateUrl: './app.component.html',
     styleUrls: ['app.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    providers: [AuthenticationService]
+    encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
     title = `KLAN app`;

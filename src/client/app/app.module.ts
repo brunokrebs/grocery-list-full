@@ -8,6 +8,8 @@ import {PanelComponent} from "./panel";
 import {SignInComponent} from "./sign-in";
 import {Routing} from "./app.routing";
 import {SignUpComponent} from "./sign-up";
+import {AuthenticatedGuard} from "./authenticated.guard";
+import {AuthenticationService} from "./authentication.service";
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -18,7 +20,9 @@ import {SignUpComponent} from "./sign-up";
         BrowserModule, HttpModule, FormsModule, Routing
     ],
     providers: [
-        { provide: ErrorHandler, useClass: GlobalErrorHandler}
+        { provide: ErrorHandler, useClass: GlobalErrorHandler },
+        AuthenticationService,
+        AuthenticatedGuard,
     ]
 })
 export class AppModule { }
