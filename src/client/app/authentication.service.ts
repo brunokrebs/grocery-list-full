@@ -7,6 +7,7 @@ import 'rxjs/add/operator/toPromise';
 import { Serialize, Deserialize }       from 'cerialize';
 import { Credentials }                  from '../../common/credentials';
 import {User}                           from "../../common/user";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class AuthenticationService implements OnInit {
@@ -17,7 +18,7 @@ export class AuthenticationService implements OnInit {
 
     public signedIn$ = this.signedInSource.asObservable();
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private router: Router) { }
 
     ngOnInit(): void {
         // FIXME load bearer token from localStorage
@@ -29,6 +30,7 @@ export class AuthenticationService implements OnInit {
             .then(response => {
                 this._user = Deserialize(response.json(), User);
                 this.signedInSource.next(this._user);
+                this.router.navigate(['/panel']);
                 return this._user;
             });
     }

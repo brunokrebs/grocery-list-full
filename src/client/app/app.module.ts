@@ -4,6 +4,7 @@ import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {AppComponent} from "./app.component";
 import {GlobalErrorHandler} from "./global-error-handler";
+import {PanelComponent} from "./panel";
 import {SignInComponent} from "./sign-in";
 import {Routing} from "./app.routing";
 import {SignUpComponent} from "./sign-up";
@@ -11,7 +12,7 @@ import {SignUpComponent} from "./sign-up";
 @NgModule({
     bootstrap: [ AppComponent ],
     declarations: [
-        AppComponent, SignInComponent, SignUpComponent
+        AppComponent, SignInComponent, SignUpComponent, PanelComponent
     ],
     imports: [
         BrowserModule, HttpModule, FormsModule, Routing
