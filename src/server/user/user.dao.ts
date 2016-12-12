@@ -15,7 +15,7 @@ class UserDAO {
         });
         if (!admin) {
             console.log('inserting admin user');
-            this.insertUser(new User('me@brunokrebs.com', 'password', true));
+            this.insertUser(new User('me@brunokrebs.com', 'password', 'Bruno Krebs', true));
         }
     }
 
