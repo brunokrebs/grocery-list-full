@@ -7,9 +7,19 @@ import {AuthenticationService} from "../authentication.service";
     styleUrls: ['./grocery-list.component.scss']
 })
 export class GroceryListComponent {
+    newItem: String;
+    groceryList: Array<String> = ['Banana', 'Apples', 'Chocolate'];
+
     constructor (private authenticationService: AuthenticationService) { }
 
     getUser() : String {
         return this.authenticationService.user().name;
+    }
+
+    addItem() : void {
+        if (this.newItem && this.newItem.trim() != '') {
+            this.groceryList.push(this.newItem);
+        }
+        this.newItem = null;
     }
 }
