@@ -14,7 +14,7 @@
             </form>
             <div class="list-group">
                 <a class="list-group-item" (click)="removeItem(i)"
-                   *ngFor="let item of groceryList; let i = index">
+                   *ngFor="let item of getItems(); let i = index">
                     {{item}}
                 </a>
             </div>

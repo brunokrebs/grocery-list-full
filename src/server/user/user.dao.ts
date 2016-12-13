@@ -34,7 +34,7 @@ class UserDAO {
         this.USER_DB.commit();
     }
 
-    findByUsername(email: String) {
+    findByUsername(email: String): any {
         return this.USER_DB.findOne({
             email: email
         });
@@ -52,6 +52,10 @@ class UserDAO {
             return null;
         }
         return Deserialize(userFound, User);
+    }
+
+    update(user: User): void {
+        this.USER_DB.update(user);
     }
 
     static getInstance() {

@@ -1,5 +1,7 @@
 import {Component} from "@angular/core";
+import {Http} from "@angular/http";
 import {AuthenticationService} from "../authentication.service";
+import {User} from "../../../common/user";
 
 @Component({
     selector: 'panel-component',
@@ -7,23 +9,34 @@ import {AuthenticationService} from "../authentication.service";
     styleUrls: ['./grocery-list.component.scss']
 })
 export class GroceryListComponent {
+    private updateList = '/api/update-list';
     newItem: String;
-    groceryList: Array<String> = ['Banana', 'Apples', 'Chocolate'];
 
-    constructor (private authenticationService: AuthenticationService) { }
+    constructor (private authenticationService: AuthenticationService, private http: Http) { }
 
-    getUser() : String {
-        return this.authenticationService.user().name;
+    getItems() : Array<String> {
+        return this.getUser().items;
     }
 
     addItem() : void {
         if (this.newItem && this.newItem.trim() != '') {
-            this.groceryList.push(this.newItem);
+            if (!this.getUser().items) {
+                this.getUser().items = [];
+            }
+
+            this.getUser().items.push(this.newItem);
+
+            this.http.post(this.updateList, this.getUser())
+                .toPromise();
         }
         this.newItem = null;
     }
 
     removeItem(index: number) : void {
-        this.groceryList.splice(index, 1);
+        this.getUser().items.splice(index, 1);
+    }
+
+    private getUser(): User {
+        return this.authenticationService.user();
     }
 }
