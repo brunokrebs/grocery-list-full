@@ -1,6 +1,6 @@
 // routes
 import {SINGLETON as UserDAO} from "../user/user.dao";
-import {Message} from '../../common/message';
+import {Exception} from '../../common/exception';
 import {Deserialize} from "cerialize";
 import { sign as signJWT, verify as verifyJWT } from "jsonwebtoken";
 
@@ -11,10 +11,7 @@ const SIGN_UP = {
     middleware: function *() {
         let user = UserDAO.findByUsername(this.request.body.email);
         if (user) {
-            let error = new Message(401, `E-mail already registered.`);
-            this.status = error.statusCode;
-            this.body = error.toObject();
-            return;
+            throw new Exception(401, 'E-mail already registered.');
         }
         UserDAO.insertUser(Deserialize(this.request.body));
         this.body = UserDAO.findByUsernameAndPassword(this.request.body.email, this.request.body.password);
@@ -30,9 +27,7 @@ const SIGN_IN = {
             user.token = signJWT(user, SUPER_SECRET);
             this.body = user;
         } else {
-            let error = new Message(401, `Who are you?`);
-            this.status = error.statusCode;
-            this.body = error.toObject();
+            throw new Exception(401, 'Uknown user');
         }
     }
 };
@@ -45,9 +40,7 @@ const SECURED_ROUTES = {
             this.state.user = verifyJWT(token.replace('Bearer ', ''), SUPER_SECRET);
             yield next;
         } catch (err) {
-            let error = new Message(401, `Who are you?`);
-            this.status = error.statusCode;
-            this.body = error.toObject();
+            throw new Exception(401, 'Uknown user');
         }
     }
 };

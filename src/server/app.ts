@@ -4,6 +4,7 @@ import * as BodyParser from "koa-bodyparser";
 import * as Lokijs from "lokijs";
 import {SINGLETON as UserDAO} from "./user/user.dao";
 import ROUTER from "./app.routes";
+import ErrorHandler from "./error-handler.middleware";
 
 const CLIENT_FILES = './dev/client/';
 
@@ -19,6 +20,7 @@ const SERVER = new Koa();
 // middlewares
 SERVER.use(BodyParser());
 SERVER.use(StaticFiles(CLIENT_FILES));
+SERVER.use(ErrorHandler);
 SERVER.use(ROUTER.routes());
 
 SERVER.listen(3000);
