@@ -3,8 +3,7 @@ import {AuthenticationService} from "../authentication.service";
 
 @Component({
     selector: 'panel-component',
-    templateUrl: './grocery-list.component.html',
-    styleUrls: ['./grocery-list.component.scss']
+    templateUrl: './grocery-list.component.html'
 })
 export class GroceryListComponent {
     constructor (private authenticationService: AuthenticationService) { }
