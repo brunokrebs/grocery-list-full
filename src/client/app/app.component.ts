@@ -25,7 +25,7 @@ export class AppComponent {
         return this._signedIn;
     }
 
-    user(): String {
+    user(): string {
         return this._user ? this._user.email : null;
     }
 }

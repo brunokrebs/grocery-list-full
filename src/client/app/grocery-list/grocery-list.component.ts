@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
-import {Http} from "@angular/http";
 import {AuthenticationService} from "../authentication.service";
 import {User} from "../../../common/user";
+import {AuthHttp} from "angular2-jwt";
 
 @Component({
     selector: 'panel-component',
@@ -10,11 +10,11 @@ import {User} from "../../../common/user";
 })
 export class GroceryListComponent {
     private updateList = '/api/update-list';
-    newItem: String;
+    newItem: string;
 
-    constructor (private authenticationService: AuthenticationService, private http: Http) { }
+    constructor (private authenticationService: AuthenticationService, private authHttp: AuthHttp) { }
 
-    getItems() : Array<String> {
+    getItems() : Array<string> {
         return this.getUser().items;
     }
 
@@ -26,10 +26,12 @@ export class GroceryListComponent {
 
             this.getUser().items.push(this.newItem);
 
-            this.http.post(this.updateList, this.getUser())
-                .toPromise();
+            this.authHttp.post(this.updateList, this.getUser())
+                .subscribe(
+                    data => this.newItem = null,
+                    err => console.log(err)
+                );
         }
-        this.newItem = null;
     }
 
     removeItem(index: number) : void {

@@ -27,6 +27,7 @@ export class AuthenticationService implements OnInit {
             .toPromise()
             .then(response => {
                 this._user = Deserialize(response.json(), User);
+                localStorage.setItem('id_token', this._user.token);
                 this.signedInSource.next(this._user);
                 this.router.navigate(['/grocery-list']);
                 return this._user;
@@ -38,6 +39,7 @@ export class AuthenticationService implements OnInit {
             .toPromise()
             .then(response => {
                 this._user = Deserialize(response.json(), User);
+                localStorage.setItem('id_token', this._user.token);
                 this.signedInSource.next(this._user);
                 return this._user;
             });

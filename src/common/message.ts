@@ -1,8 +1,8 @@
 export class Message {
     private _statusCode: number;
-    private _message: String;
+    private _message: string;
 
-    constructor(statusCode: number, message: String) {
+    constructor(statusCode: number, message: string) {
         this._statusCode = statusCode;
         this._message = message;
     }
@@ -11,7 +11,7 @@ export class Message {
         return this._statusCode;
     }
 
-    get message(): String {
+    get message(): string {
         return this._message;
     }
 

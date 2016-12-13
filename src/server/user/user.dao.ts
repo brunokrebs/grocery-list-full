@@ -34,13 +34,13 @@ class UserDAO {
         this.USER_DB.commit();
     }
 
-    findByUsername(email: String): any {
+    findByUsername(email: string): any {
         return this.USER_DB.findOne({
             email: email
         });
     }
 
-    findByUsernameAndPassword(email: String, password: String) : User {
+    findByUsernameAndPassword(email: string, password: string) : User {
         let userFound = this.USER_DB.findOne({
             $and: [
                 { email: email },

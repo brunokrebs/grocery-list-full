@@ -10,6 +10,7 @@ import {Routing} from "./app.routing";
 import {SignUpComponent} from "./sign-up";
 import {AuthenticatedGuard} from "./authenticated.guard";
 import {AuthenticationService} from "./authentication.service";
+import {AUTH_PROVIDERS} from "angular2-jwt";
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -23,6 +24,7 @@ import {AuthenticationService} from "./authentication.service";
         { provide: ErrorHandler, useClass: GlobalErrorHandler },
         AuthenticationService,
         AuthenticatedGuard,
+        AUTH_PROVIDERS
     ]
 })
 export class AppModule { }
