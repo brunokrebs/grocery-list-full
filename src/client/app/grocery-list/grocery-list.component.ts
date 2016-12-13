@@ -22,4 +22,8 @@ export class GroceryListComponent {
         }
         this.newItem = null;
     }
+
+    removeItem(index: number) : void {
+        this.groceryList.splice(index, 1);
+    }
 }
