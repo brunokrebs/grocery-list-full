@@ -9,7 +9,7 @@ import {User} from "../../common/user";
     encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-    title = `KLAN app`;
+    title = 'Grocery List';
 
     private _signedIn: boolean = null;
     private _user: User;

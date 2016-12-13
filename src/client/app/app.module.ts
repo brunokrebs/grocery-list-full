@@ -4,7 +4,7 @@ import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {AppComponent} from "./app.component";
 import {GlobalErrorHandler} from "./global-error-handler";
-import {PanelComponent} from "./panel";
+import {GroceryListComponent} from "./grocery-list";
 import {SignInComponent} from "./sign-in";
 import {Routing} from "./app.routing";
 import {SignUpComponent} from "./sign-up";
@@ -14,7 +14,7 @@ import {AuthenticationService} from "./authentication.service";
 @NgModule({
     bootstrap: [ AppComponent ],
     declarations: [
-        AppComponent, SignInComponent, SignUpComponent, PanelComponent
+        AppComponent, SignInComponent, SignUpComponent, GroceryListComponent
     ],
     imports: [
         BrowserModule, HttpModule, FormsModule, Routing

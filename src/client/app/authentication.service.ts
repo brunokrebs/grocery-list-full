@@ -30,7 +30,7 @@ export class AuthenticationService implements OnInit {
             .then(response => {
                 this._user = Deserialize(response.json(), User);
                 this.signedInSource.next(this._user);
-                this.router.navigate(['/panel']);
+                this.router.navigate(['/grocery-list']);
                 return this._user;
             });
     }
