@@ -2,7 +2,7 @@
 import {SINGLETON as UserDAO} from "../user/user.dao";
 import {Message} from '../../common/message';
 import {Deserialize} from "cerialize";
-import { sign as signJWT } from "jsonwebtoken";
+import { sign as signJWT, verify as verifyJWT } from "jsonwebtoken";
 
 const SUPER_SECRET = 'change-this';
 
@@ -37,8 +37,23 @@ const SIGN_IN = {
     }
 };
 
+const SECURED_ROUTES = {
+    path: /^\/api\/(.*)(?:\/|$)/,
+    middleware: function *(next) {
+        try {
+            let token = this.request.headers['authorization'];
+            this.state.user = verifyJWT(token.replace('Bearer ', ''), SUPER_SECRET);
+            yield next;
+        } catch (err) {
+            let error = new Message(401, `Who are you?`);
+            this.status = error.statusCode;
+            this.body = error.toObject();
+        }
+    }
+};
+
 const AUTHENTICATION_ROUTES = {
-    posts: [ SIGN_UP, SIGN_IN ]
+    posts: [ SIGN_UP, SIGN_IN, SECURED_ROUTES ]
 };
 
 export default AUTHENTICATION_ROUTES;
