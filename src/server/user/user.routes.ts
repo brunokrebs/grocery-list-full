@@ -1,8 +1,6 @@
 // routes
 import {SINGLETON as UserDAO} from "./user.dao";
 
-const SUPER_SECRET = 'change-this';
-
 const UPDATE_USER = {
     path: '/api/update-list',
     middleware: function *() {
