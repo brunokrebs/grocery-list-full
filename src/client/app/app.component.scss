@@ -33,3 +33,7 @@ section {
         @extend .form-control;
     }
 }
+
+.input-group-btn button {
+    height: 34px;
+}
