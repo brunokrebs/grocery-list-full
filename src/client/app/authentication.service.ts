@@ -2,7 +2,6 @@ import {Injectable, OnInit} from "@angular/core";
 import {Http} from "@angular/http";
 import {Subject} from "rxjs/Subject";
 import "rxjs/add/operator/toPromise";
-import {Serialize, Deserialize} from "cerialize";
 import {Credentials} from "../../common/credentials";
 import {User} from "../../common/user";
 import {Router} from "@angular/router";
@@ -22,26 +21,26 @@ export class AuthenticationService implements OnInit {
         // FIXME load bearer token from localStorage
     }
 
-    authenticate(credentials: Credentials): Promise<User> {
-        return this.http.post(this.authEndpoint, Serialize(credentials))
+    private onAuthenticated(response: any, context: any): void {
+        context._user = response.json().user;
+        localStorage.setItem('id_token', response.json().token);
+        context.signedInSource.next(context._user);
+        context.router.navigate(['/grocery-list']);
+    }
+
+    authenticate(credentials: Credentials): Promise<void> {
+        return this.http.post(this.authEndpoint, credentials)
             .toPromise()
             .then(response => {
-                this._user = Deserialize(response.json(), User);
-                localStorage.setItem('id_token', this._user.token);
-                this.signedInSource.next(this._user);
-                this.router.navigate(['/grocery-list']);
-                return this._user;
+                this.onAuthenticated(response, this);
             });
     }
 
-    signUp(user: User): Promise<User> {
-        return this.http.post(this.signUpEndpoint, Serialize(user))
+    signUp(user: User): Promise<void> {
+        return this.http.post(this.signUpEndpoint, user)
             .toPromise()
             .then(response => {
-                this._user = Deserialize(response.json(), User);
-                localStorage.setItem('id_token', this._user.token);
-                this.signedInSource.next(this._user);
-                return this._user;
+                this.onAuthenticated(response, this);
             });
     }
 
