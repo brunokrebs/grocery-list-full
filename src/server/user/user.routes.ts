@@ -1,7 +1,7 @@
 // routes
 import {SINGLETON as UserDAO} from "./user.dao";
 
-const UPDATE_USER = {
+export default {
     path: '/api/update-list',
     middleware: function *() {
         let user = UserDAO.findByEmail(this.state.user.email);
@@ -9,10 +9,4 @@ const UPDATE_USER = {
         UserDAO.update(user);
         this.body = {};
     }
-};
-
-const USER_ROUTES = {
-    posts: [ UPDATE_USER ]
-};
-
-export default USER_ROUTES;
+}
