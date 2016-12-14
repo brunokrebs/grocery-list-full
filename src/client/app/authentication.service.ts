@@ -21,18 +21,18 @@ export class AuthenticationService implements OnInit {
         // FIXME load bearer token from localStorage
     }
 
-    private onAuthenticated(response: any, context: any): void {
-        context._user = response.json().user;
+    private onAuthenticated(response: any): void {
+        this._user = response.json().user;
         localStorage.setItem('id_token', response.json().token);
-        context.signedInSource.next(context._user);
-        context.router.navigate(['/grocery-list']);
+        this.signedInSource.next(this._user);
+        this.router.navigate(['/grocery-list']);
     }
 
     authenticate(credentials: Credentials): Promise<void> {
         return this.http.post(this.authEndpoint, credentials)
             .toPromise()
             .then(response => {
-                this.onAuthenticated(response, this);
+                this.onAuthenticated.call(this, response);
             });
     }
 
@@ -40,7 +40,7 @@ export class AuthenticationService implements OnInit {
         return this.http.post(this.signUpEndpoint, user)
             .toPromise()
             .then(response => {
-                this.onAuthenticated(response, this);
+                this.onAuthenticated.call(this, response);
             });
     }
 
