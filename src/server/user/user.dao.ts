@@ -1,5 +1,3 @@
-import {Serialize} from 'cerialize';
-
 import { User } from '../../common/user';
 
 class UserDAO {
@@ -20,9 +18,7 @@ class UserDAO {
     }
 
     findByEmail(email: string): any {
-        return this.USER_DB.findOne({
-            email: email
-        });
+        return this.USER_DB.findOne({ email });
     }
 
     update(user: User): void {
