@@ -1,12 +1,11 @@
 import * as Koa from "koa";
 import * as StaticFiles from "koa-static";
 import * as BodyParser from "koa-bodyparser";
+import ROUTER from "./app.routes";
+import exceptionHandler from "./exception-handler.middleware";
+// import LokiJS and UserDAO
 import * as Lokijs from "lokijs";
 import {SINGLETON as UserDAO} from "./user/user.dao";
-import ROUTER from "./app.routes";
-import ErrorHandler from "./error-handler.middleware";
-
-const CLIENT_FILES = './dev/client/';
 
 const DB = new Lokijs('klan-database.json', {
     autosave: true
@@ -14,13 +13,15 @@ const DB = new Lokijs('klan-database.json', {
 
 UserDAO.configure(DB);
 
-// FIXME refactor it to something like a Server class
+const CLIENT_FILES = './dev/client/';
+
 const SERVER = new Koa();
 
 // middlewares
 SERVER.use(BodyParser());
 SERVER.use(StaticFiles(CLIENT_FILES));
-SERVER.use(ErrorHandler);
+// make Koa server use the middleware
+SERVER.use(exceptionHandler);
 SERVER.use(ROUTER.routes());
 
 SERVER.listen(3000);
