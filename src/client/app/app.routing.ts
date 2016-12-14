@@ -1,8 +1,8 @@
 import {RouterModule} from "@angular/router";
 
-import {SignInComponent} from "./sign-in";
-import {SignUpComponent} from "./sign-up";
-import {GroceryListComponent} from "./grocery-list";
+import {SignInComponent} from "./sign-in/sign-in.component";
+import {SignUpComponent} from "./sign-up/sign-up.component";
+import {GroceryListComponent} from "./grocery-list/grocery-list.component";
 import {AuthenticatedGuard} from "./authenticated.guard";
 
 const APP_ROUTES = [
