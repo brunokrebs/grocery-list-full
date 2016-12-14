@@ -1,6 +1,5 @@
 import {Component} from "@angular/core";
 import {AuthenticationService} from "../authentication.service";
-import {Credentials} from "../../../common/credentials";
 
 @Component({
     selector: 'sign-in',
@@ -8,12 +7,13 @@ import {Credentials} from "../../../common/credentials";
 })
 export class SignInComponent {
 
-    credentials: Credentials = new Credentials();
+    email: string;
+    password: string;
 
     constructor(private authenticationService: AuthenticationService) { }
 
     signIn(): void {
         this.authenticationService
-            .authenticate(this.credentials);
+            .authenticate(this.email, this.password);
     }
 }
