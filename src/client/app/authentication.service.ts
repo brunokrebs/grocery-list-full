@@ -4,31 +4,44 @@ import "rxjs/add/operator/toPromise";
 import {User} from "../../common/user";
 import {Router} from "@angular/router";
 
+const Auth0Lock = require('auth0-lock').default;
+
+const AUTH0_CLIENT_ID = "pe1TeJnjahK0nZR0Q1waZlMCAJg0sNz6";
+const AUTH0_DOMAIN = "brunokrebs.auth0.com";
+
 @Injectable()
 export class AuthenticationService {
-    private _user: User;
+    private _user: any;
+    private lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
 
-    constructor(private http: Http, private router: Router) { }
-
-    private onAuthenticated(response: any): void {
-        this._user = response.json().user;
-        localStorage.setItem('id_token', response.json().token);
-        this.router.navigate(['/grocery-list']);
+    constructor(private http: Http, private router: Router) {
+        // We'll listen for an authentication event to be raised and if successful will log the user in.
+        this.lock.on('authenticated', (authResult: any) => {
+            this.onAuthenticated.call(this, authResult);
+        });
     }
 
-    authenticate(email: string, password: string): Promise<void> {
-        return this.http.post('/api/sign-in', { email, password })
-            .toPromise()
-            .then(response => this.onAuthenticated.call(this, response));
+    private onAuthenticated(authResult: any): void {
+        localStorage.setItem('id_token', authResult.idToken);
+
+        this.lock.getProfile(authResult.idToken, (error: any, profile: any) => {
+            if (error) {
+                console.log(error);
+            }
+            this._user = profile;
+
+            localStorage.setItem('profile', profile);
+            this.router.navigateByUrl('/grocery-list');
+        });
+
+        this.lock.hide();
     }
 
-    signUp(user: User): Promise<void> {
-        return this.http.post('/api/sign-up', user)
-            .toPromise()
-            .then(response => this.onAuthenticated.call(this, response));
+    showSignInScreen(): void {
+        this.lock.show();
     }
 
-    user(): User {
+    user(): any {
         return this._user;
     }
 }

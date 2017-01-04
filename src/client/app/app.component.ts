@@ -1,4 +1,5 @@
 import {Component, ViewEncapsulation} from "@angular/core";
+import {AuthenticationService} from "./authentication.service";
 
 @Component({
     selector: 'my-app',
@@ -8,4 +9,10 @@ import {Component, ViewEncapsulation} from "@angular/core";
 })
 export class AppComponent {
     title = 'Grocery List';
+
+    constructor(private authenticationService: AuthenticationService) { }
+
+    signIn() {
+        this.authenticationService.showSignInScreen();
+    }
 }
