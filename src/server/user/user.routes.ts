@@ -15,6 +15,14 @@ export const GET_LIST = {
     path: '/api/list',
     middleware: function *() {
         let user = UserDAO.findByEmail(this.state.user.email);
+        if (!user) {
+            // new users must be persisted before being able to fill data
+            user = {
+                email: this.state.user.email,
+                items: []
+            };
+            UserDAO.insertUser(user);
+        }
         this.body = user.items;
     }
 };
