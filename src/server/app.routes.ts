@@ -1,6 +1,6 @@
 import * as Router from "koa-router";
 import * as fs from "fs";
-import UPDATE_LIST_ROUTE from "./user/user.routes";
+import { UPDATE_LIST, GET_LIST } from "./user/user.routes";
 import { SECURED_ROUTES } from "./authentication.routes";
 
 const ROUTER = new Router();
@@ -23,7 +23,9 @@ ROUTER.get(/^\/(.*)(?:\/|$)/, function *(next) {
 });
 
 ROUTER.post(SECURED_ROUTES.path, SECURED_ROUTES.middleware);
+ROUTER.get(SECURED_ROUTES.path, SECURED_ROUTES.middleware);
 
-ROUTER.post(UPDATE_LIST_ROUTE.path, UPDATE_LIST_ROUTE.middleware);
+ROUTER.post(UPDATE_LIST.path, UPDATE_LIST.middleware);
+ROUTER.get(GET_LIST.path, GET_LIST.middleware);
 
 export default ROUTER;
