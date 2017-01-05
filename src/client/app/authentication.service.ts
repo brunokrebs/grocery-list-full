@@ -12,7 +12,11 @@ const AUTH0_DOMAIN = "brunokrebs.auth0.com";
 @Injectable()
 export class AuthenticationService {
     private _user: any;
-    private lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
+    private lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
+        auth: {
+            params: { scope: 'openid email' }
+        }
+    });
 
     constructor(private http: Http, private router: Router) {
         // We'll listen for an authentication event to be raised and if successful will log the user in.
