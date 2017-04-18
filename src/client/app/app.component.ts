@@ -1,4 +1,5 @@
 import {Component, ViewEncapsulation} from "@angular/core";
+import {AuthenticationService} from "./authentication.service";
 
 @Component({
     selector: 'my-app',
@@ -8,4 +9,9 @@ import {Component, ViewEncapsulation} from "@angular/core";
 })
 export class AppComponent {
     title = 'Grocery List';
+    nonce: string;
+
+    constructor(private authenticationService: AuthenticationService) {
+        this.nonce = this.authenticationService.generateNonce();
+    }
 }

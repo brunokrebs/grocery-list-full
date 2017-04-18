@@ -1,14 +1,16 @@
 import {RouterModule} from "@angular/router";
 
-import {SignInComponent} from "./sign-in/sign-in.component";
-import {SignUpComponent} from "./sign-up/sign-up.component";
 import {GroceryListComponent} from "./grocery-list/grocery-list.component";
 import {AuthenticatedGuard} from "./authenticated.guard";
+import {CallbackComponent} from "./callback.component";
 
-const APP_ROUTES = [
-    { path: '', component: SignInComponent },
-    { path: 'sign-up', component: SignUpComponent },
-    { path: 'grocery-list', component: GroceryListComponent, canActivate: [AuthenticatedGuard] }
-];
+const APP_ROUTES = [{
+    path: 'grocery-list',
+    component: GroceryListComponent,
+    canActivate: [AuthenticatedGuard]
+}, {
+    path: 'callback',
+    component: CallbackComponent,
+}];
 
 export const Routing = RouterModule.forRoot(APP_ROUTES);
