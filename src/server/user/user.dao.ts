@@ -1,4 +1,4 @@
-import { User } from '../../common/user';
+import {User} from "../../common/user";
 
 class UserDAO {
     private USER_DB: LokiCollection<{}>;
@@ -17,12 +17,12 @@ class UserDAO {
         this.USER_DB.insert(user);
     }
 
-    findByEmail(email: string): any {
-        return this.USER_DB.findOne({ email });
+    findBySubject(sub: string): any {
+        return this.USER_DB.findOne({ sub });
     }
 
     update(user: User): void {
-        let persistedUser = this.findByEmail(user.email);
+        let persistedUser = this.findBySubject(user.sub);
         persistedUser.items = user.items;
         this.USER_DB.update(persistedUser);
     }

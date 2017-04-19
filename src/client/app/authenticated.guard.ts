@@ -9,9 +9,11 @@ export class AuthenticatedGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
                 Observable<boolean> | Promise<boolean> | boolean {
+        console.log(this.authenticationService.user());
         if (this.authenticationService.user() != null) {
             return true;
         }
+        console.log('navigou');
         this.router.navigate(['/']);
         return false;
     }
