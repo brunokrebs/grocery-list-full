@@ -3,26 +3,28 @@ import {SINGLETON as UserDAO} from "./user.dao";
 
 export const UPDATE_LIST = {
     path: '/api/update-list',
-    middleware: function *() {
-        let user = UserDAO.findBySubject(this.state.user.sub);
-        user.items = this.request.body.items;
+    middleware: async ctx => {
+        let user = UserDAO.findBySubject(ctx.state.user.sub);
+        user.items = ctx.request.body.items;
         UserDAO.update(user);
-        this.body = {};
+        ctx.body = {};
     }
 };
 
 export const GET_LIST = {
     path: '/api/list',
-    middleware: function *() {
-        let user = UserDAO.findBySubject(this.state.user.sub);
+    middleware: async (ctx, next) => {
+        let user = UserDAO.findBySubject(ctx.state.user.sub);
         if (!user) {
             // new users must be persisted before being able to fill data
             user = {
-                sub: this.state.user.sub,
+                sub: ctx.state.user.sub,
                 items: []
             };
             UserDAO.insertUser(user);
         }
-        this.body = user.items;
+        ctx.body = user.items;
+        console.log('next');
+        return next();
     }
 };

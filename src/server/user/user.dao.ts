@@ -1,4 +1,4 @@
-import { User } from '../../common/user';
+import {User} from "../../common/user";
 
 class UserDAO {
     private USER_DB: LokiCollection<{}>;

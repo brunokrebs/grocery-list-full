@@ -1,9 +1,15 @@
 import * as Router from "koa-router";
 import * as fs from "fs";
+import * as jwt from "jsonwebtoken";
 // updating import from user.routes
-import { UPDATE_LIST, GET_LIST } from "./user/user.routes";
-// removing deprecated routes
-import { SECURED_ROUTES } from "./authentication.routes";
+import {UPDATE_LIST, GET_LIST} from "./user/user.routes";
+let jwks = require('jwks-rsa');
+let request = require('request');
+
+
+const client = jwks({
+    jwksUri: 'https://bkrebs.auth0.com/.well-known/jwks.json'
+});
 
 const ROUTER = new Router();
 
@@ -16,17 +22,40 @@ const LOAD_HTML = function() {
     });
 };
 
-ROUTER.get(/^\/(.*)(?:\/|$)/, function *(next) {
-    if (this.request.url.startsWith("/api")) {
-        yield next;
+ROUTER.get(/^\/(.*)(?:\/|$)/, async (ctx, next) => {
+    if (ctx.request.url.startsWith("/api")) {
+        return next();
     } else {
-        this.body = yield LOAD_HTML();
+        ctx.body = await LOAD_HTML();
     }
 });
 
-ROUTER.post(SECURED_ROUTES.path, SECURED_ROUTES.middleware);
-// securing any path that is 'GET' from now on
-ROUTER.get(SECURED_ROUTES.path, SECURED_ROUTES.middleware);
+const VERIFY_JWT = function(ctx, kid, token) {
+    return new Promise(function (resolve) {
+        client.getSigningKey(kid, (err, key) => {
+            let signingKey = key.publicKey || key.rsaPublicKey;
+            let accessKey = jwt.verify(token, signingKey);
+            ctx.state.user = {
+                sub: accessKey.sub
+            };
+            resolve();
+        });
+    });
+};
+
+ROUTER.all(/^\/api\/(.*)(?:\/|$)/, async (ctx, next) => {
+    if (! ctx.request.headers.authorization) {
+        ctx.status = 401;
+        return ctx.body = {
+           message: 'Unauthorized'
+        };
+    }
+    let token = ctx.request.headers.authorization.replace('Bearer ', '');
+    let kid = jwt.decode(token, {complete: true}).header.kid;
+
+    await VERIFY_JWT(ctx, kid, token);
+    return next();
+});
 
 ROUTER.post(UPDATE_LIST.path, UPDATE_LIST.middleware);
 // adding the new '/api/list' endpoint
